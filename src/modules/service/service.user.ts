@@ -62,7 +62,7 @@ export class userService {
         return user;
     }
 
-    async getAllUser(data: any): Promise<any> {
+    async getAllUser(): Promise<any> {
         const user = await User.find({
             isDelete: false
         });
