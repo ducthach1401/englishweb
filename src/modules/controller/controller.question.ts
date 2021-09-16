@@ -5,5 +5,4 @@ import {errorHandler, successHandler} from './../../utils/response.service';
 
 export class questionController {
     private question: questionService = new questionService();
-    
 }

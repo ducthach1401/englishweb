@@ -3,7 +3,7 @@ import User from '../model/model.user';
 import jwt from 'jsonwebtoken';
 
 export class authenService {
-    async login(data){
+    async login(data: any){
         try {
             const user = await User.findOne({
                 username: data.username
@@ -19,8 +19,8 @@ export class authenService {
                     name: user.name,
                     isAdmin: user.isAdmin
                 }
-                const accessToken: any = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '6h'});
-                const refreshToken: any = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);
+                const accessToken: any = jwt.sign(payload, `${process.env.ACCESS_TOKEN_SECRET}`, {expiresIn: '6h'});
+                const refreshToken: any = jwt.sign(payload, `${process.env.REFRESH_TOKEN_SECRET}`);
                 user.refreshToken = refreshToken;
                 await user.save();
                 return {
@@ -36,7 +36,7 @@ export class authenService {
         }
     }
 
-    async refresh(token){
+    async refresh(token: any){
         try {
             const user = await User.findOne({
                 refreshToken: token
@@ -50,8 +50,8 @@ export class authenService {
                 name: user.name,
                 isAdmin: user.isAdmin
             }
-            await jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
-            const accessToken: any = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '6h'});
+            await jwt.verify(token, `${process.env.REFRESH_TOKEN_SECRET}`);
+            const accessToken: any = jwt.sign(payload, `${process.env.ACCESS_TOKEN_SECRET}`, {expiresIn: '6h'});
             return {
                 accessToken: accessToken
             }

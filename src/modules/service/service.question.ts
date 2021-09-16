@@ -24,7 +24,7 @@ export class questionService {
                 exampleVietnamese: $(element).find('b').text().trim()
             }
             totalResult.push(result);
-            console.log(totalResult);
+            // console.log(totalResult);
             // test = test.toString(' ');
         });
         // console.log(totalResult);
@@ -33,9 +33,19 @@ export class questionService {
 
     async saveQuestion(): Promise<any>{
         for (let i = 1; i <= 50; i++){
-            const result = this.createQuestion(i);
-            const saveData = new Quest(result);
-            saveData.save();
+            const result: any = await this.createQuestion(i);
+            console.log(i);
+            for await (let data of result){
+                const check = await Quest.findOne({
+                    'english': data.english
+                });
+                if (!check){
+                    const saveData = new Quest(data);
+                    await saveData.save();   
+                }
+            }
         }
     }
 }
+
+// const test = new questionService().saveQuestion();
