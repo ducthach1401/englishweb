@@ -17,7 +17,7 @@ const questionSchema = new Schema(SchemaBase({
     type: {type: String, required: true},
     meaning: {type: String},
     exampleEnglish: {type: String, required: true},
-    exampleVietnamese: {type: String, required: true},
+    exampleVietnamese: {type: String},
     catalogy: {type: String, required: true}
 }),{
     timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
