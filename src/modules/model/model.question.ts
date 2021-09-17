@@ -18,9 +18,12 @@ const questionSchema = new Schema(SchemaBase({
     meaning: {type: String},
     exampleEnglish: {type: String, required: true},
     exampleVietnamese: {type: String},
-    catalogy: {type: String, required: true}
+    category: {type: String, required: true}
 }),{
     timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
 });
 
+questionSchema.index({
+    english: 'text'
+});
 export default model<IQuest>('Quest', questionSchema);
