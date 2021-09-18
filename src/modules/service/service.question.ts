@@ -42,7 +42,7 @@ export class questionService {
             console.log(i);
             for await (let data of result){
                 const check = await Quest.findOne({
-                    'english': data.english
+                    english: data.english
                 });
                 if (!check){
                     console.log(data.english);
@@ -111,9 +111,17 @@ export class questionService {
         }
     }
 
-    async createTestCategory(): Promise<any> {
+    async createTestCategory(category: any): Promise<any> {
         try {
-            
+            const answerAll = await Quest.find();
+            const getQuestions = await Quest.find(category);
+            let result: any = [];
+            for (let quest of getQuestions){
+                const temp = await this.createMultipleChoice(quest, answerAll);
+                result.push(temp);
+            }
+            console.log(result);
+            return result;
         } catch (error) {
             throw error;
         }
@@ -121,11 +129,110 @@ export class questionService {
 
     async createTest(): Promise<any> {
         try {
-            
+            const answer = await Quest.find();
+            let temp = await Quest.find();
+            temp = await this.shuffle(temp);
+            let count = 0;
+            let result: any = [];
+            for (let question of temp){
+                count ++;
+                const getQuestion = await this.createMultipleChoice(question, answer);
+                result.push(getQuestion);
+                if (count == 50){
+                    break;
+                }
+            }
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async checkResult(data: any): Promise<any> {
+        try {
+            const result = await Quest.findOne({
+                vietnamese: data.vietnamese
+            });
+            if (!result){
+                throw new Error('Not Found');
+            }
+            if (result.english == data.english){
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async createMultipleChoice(data: any, answer: any): Promise<any>{
+        try {
+            const result: any = {
+                question: data.vietnamese,
+                answers: []
+            }
+            let temp: any = [];
+            let random = Math.floor(Math.random() * 4);
+            answer = answer.filter((answer: any) => {
+                const lengthData = data.english.split(' ').length;
+                const lengthAnswer = answer.english.split(' ').length;
+                if ((lengthData > 2) && (lengthAnswer >= 2)){
+                    return answer;
+                }
+                if (lengthAnswer == lengthData){
+                    return answer;
+                }
+            });
+            if (answer.length >= 4){
+                let answerTemp = answer.filter((answer: any) => {
+                    if ((data.type == '(v, n)') && (answer.type == '(v)')){
+                        return answer;
+                    }
+
+                    if ((data.type == '(v, n)') && (answer.type == '(n)')){
+                        return answer;
+                    }
+
+                    if (answer.type == data.type){
+                        return answer;
+                    } 
+                });
+                if (answerTemp.length >= 4){
+                    answer = answerTemp.slice();
+                }
+            }
+            result.answers.push(data.english);
+            for (let i = 0; i < 3; i++){
+                let randomAnswer = Math.floor(Math.random() * answer.length);
+                while ((temp.includes(randomAnswer)) || (data.english == answer[randomAnswer].english)){
+                    randomAnswer = Math.floor(Math.random() * answer.length);
+                }
+                temp.push(randomAnswer);
+                result.answers.push(answer[randomAnswer].english);
+            }
+            result.answers = await this.shuffle(result.answers);
+            result.true = data.english;
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async shuffle(array: any): Promise<any> {
+        try {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+            while (0 !== currentIndex) {
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex -= 1;
+              temporaryValue = array[currentIndex];
+              array[currentIndex] = array[randomIndex];
+              array[randomIndex] = temporaryValue;
+            }
+            return array;
         } catch (error) {
             throw error;
         }
     }
 }
-// const test = new questionService();
-// test.saveCrawl();
+

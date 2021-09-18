@@ -16,13 +16,14 @@ Thiết kế web làm trắc nghiệm tiếng anh:
 	+ ví dụ tiếng anh
 	+ ví dụ tiếng việt
 	+ Có thể có phát âm tiếng anh
-- Có phân chia chủ đề
+- Có phân chia chủ đề để học trước.
 - Bài test theo chủ đề:
 	+ Có 4 đáp án
 	+ phân loại đáp án theo loại từ, số từ, trộn các - chủ đề làm đáp án.
 	+ Có đúng sai
 	+ Có điểm làm / điểm tổng
 	+ random
+	+ lấy tất cả câu hỏi trong category
 - Câu hỏi phải có null nếu không trả lời kịp
-- Bài test tổng: 100 câu và cấu trúc như bài test theo chủ đề
+- Bài test tổng: 50 câu và cấu trúc như bài test theo chủ đề.
 - Ranking cho bài test tổng

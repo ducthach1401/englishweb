@@ -52,23 +52,31 @@ export class userService {
     }
 
     async getUser(data: any): Promise<any> {
-        const user = await User.findOne({
-            username: data.username,
-            isDelete: false
-        });
-        if (!user){
-            throw Error('Username not found!!');
+        try {
+            const user = await User.findOne({
+                username: data.username,
+                isDelete: false
+            });
+            if (!user){
+                throw Error('Username not found!!');
+            }
+            return user;
+        } catch (error) {
+            throw error;
         }
-        return user;
     }
 
     async getAllUser(): Promise<any> {
-        const user = await User.find({
-            isDelete: false
-        });
-        if (user.length <= 0){
-            throw Error('Username not found!!');
+        try {
+            const user = await User.find({
+                isDelete: false
+            });
+            if (user.length <= 0){
+                throw Error('Username not found!!');
+            }
+            return user;
+        } catch (error) {
+            throw error;
         }
-        return user;
     }  
 }
