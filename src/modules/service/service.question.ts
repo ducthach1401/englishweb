@@ -53,8 +53,10 @@ export class questionService {
         }
     }
 
-    async getQuestion(data: any, page: any, size: any): Promise<any> {
+    async getQuestion(data: any): Promise<any> {
         try {
+            const size = (data.size)?data.size:10;
+            const page = (data.page)?data.page:1;
             const question = await Quest.find(data)
             .limit(size)
             .skip((page - 1) * size);

@@ -9,6 +9,8 @@ export class CombineRoute {
     private userRoute = new userRoute();
     private authenRoute = new authenRoute();
     public start(app: Application) {
-        
+        this.questRoute.route(app);
+        this.userRoute.route(app);
+        this.authenRoute.route(app);
     }
 }
