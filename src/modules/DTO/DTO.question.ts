@@ -30,6 +30,6 @@ export const getQuestionsSchema = Joi.object({
     type: Joi.string()
 });
 
-export const getOneSchema = Joi.object({
-    english: Joi.string()
+export const englishSchema = Joi.object({
+    english: Joi.string().required()
 });

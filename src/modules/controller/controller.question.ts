@@ -16,7 +16,10 @@ export class questionController {
 
     public getOne = async (req: Request, res: Response) => {
         try {
-            const data = req.query;
+            const data = {
+                english: req.params.english,
+                isDelete: false
+            }
             const result = await this.question.getOne(data);
             successHandler(req, res, result, "Success", 200);
         } catch (error) {
@@ -26,8 +29,12 @@ export class questionController {
 
     public getQuestions = async (req: Request, res: Response) => {
         try {
-            const data = req.query;
+            const data = {
+                ...req.query,
+                isDelete: false
+            };
             const result = await this.question.getQuestion(data);
+            successHandler(req, res, result, "Success", 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
         }
@@ -37,7 +44,8 @@ export class questionController {
         try {
             const data = req.body;
             const filter = {
-                english: req.params.english
+                english: req.params.english,
+                isDelete: false
             }
             const result = await this.question.updateQuestion(data, filter);
             successHandler(req, res, '', 'Update Success', 200);
@@ -49,7 +57,8 @@ export class questionController {
     public deleteQuestion = async (req: Request, res: Response) => {
         try {
             const filter = {
-                english: req.params.english
+                english: req.params.english,
+                isDelete: false
             }
             const result = await this.question.deleteQuestion(filter);
             successHandler(req, res, '', 'delete Success', 200);

@@ -69,7 +69,9 @@ export class questionService {
 
     async getAll(): Promise<any>{
         try {
-            const result = await Quest.find();
+            const result = await Quest.find({
+                isDelete: false
+            });
             return result;
         } catch (error) {
             throw error;
@@ -115,7 +117,9 @@ export class questionService {
 
     async createTestCategory(category: any): Promise<any> {
         try {
-            const answerAll = await Quest.find();
+            const answerAll = await Quest.find({
+                isDelete:false
+            });
             const getQuestions = await Quest.find(category);
             let result: any = [];
             for (let quest of getQuestions){
@@ -131,7 +135,9 @@ export class questionService {
 
     async createTest(): Promise<any> {
         try {
-            const answer = await Quest.find();
+            const answer = await Quest.find({
+                isDelete:false
+            });
             let temp = await Quest.find();
             temp = await this.shuffle(temp);
             let count = 0;
@@ -153,7 +159,8 @@ export class questionService {
     async checkResult(data: any): Promise<any> {
         try {
             const result = await Quest.findOne({
-                vietnamese: data.vietnamese
+                vietnamese: data.vietnamese,
+                isDelete: false
             });
             if (!result){
                 throw new Error('Not Found');

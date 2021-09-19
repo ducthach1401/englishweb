@@ -8,6 +8,6 @@ export class authenRoute{
         app.route('/v1/login')
             .post(validateBodySchema, this.auth.login);
         app.route('/v1/refresh')
-            .get();
+            .get(this.auth.refresh);
     }
 }

@@ -20,12 +20,9 @@ export class userService {
         }
     }
 
-    async updateUser(data: any): Promise<any> {
+    async updateUser(data: any, username: any): Promise<any> {
         try {
-            const user = await User.findOne({
-                username: data.username,
-                isDelete: false
-            });
+            const user = await User.findOne(username);
             if (!user){
                 throw Error('Username not found!!');
             }
