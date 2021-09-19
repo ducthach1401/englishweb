@@ -19,6 +19,6 @@ mongoose.connect(`${process.env.MONGO_URL}`, {
     combineRoute.start(app);
 
     app.listen(port, () => {
-        console.log(`Server is running on ${port} at http://localhost:5000`);
+        console.log(`Server is running on ${port} at http://localhost:8080`);
     });
 }).catch((err) => {console.log("Cannot connect to database. Error:", err);})

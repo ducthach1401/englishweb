@@ -22,7 +22,7 @@ const userSchema = new Schema(SchemaBase({
     name: {type: String, required: true},
     username: {type: String, required: true, unique:true},
     password: {type: String, required: true},
-    refreshToken: {type: String, required: true, default: ""},
+    refreshToken: {type: String, default: ""},
     markExam: [{
         mark: {type: Number},
         date: {type: Number}

@@ -11,7 +11,7 @@ export class userController {
                 username: (<any>req).locals.username,
                 isDelete: false
             }
-            const result = this.user.getUser(data);
+            const result = await this.user.getUser(data);
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
@@ -20,7 +20,7 @@ export class userController {
 
     public getAllUser = async (req: Request, res: Response) => {
         try {
-            const result = this.user.getAllUser();
+            const result = await this.user.getAllUser();
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
@@ -30,8 +30,8 @@ export class userController {
     public createUser = async (req: Request, res: Response) => {
         try {
             const dataLogin = req.body;
-            const result = this.user.createUser(dataLogin);
-            successHandler(req, res, result, 'Login Success', 200)
+            const result = await this.user.createUser(dataLogin);
+            successHandler(req, res, result, 'Success', 200)
         } catch (error) {
             errorHandler(req, res, error, 400);
         }
@@ -44,7 +44,7 @@ export class userController {
                 username: (<any>req).locals.username,
                 isDelete: false
             }
-            const result = this.user.updateUser(data, username);
+            const result = await this.user.updateUser(data, username);
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
@@ -58,7 +58,7 @@ export class userController {
                 _id: req.params.id,
                 isDelete: false
             }
-            const result = this.user.updateUser(data, id);
+            const result = await this.user.updateUser(data, id);
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
@@ -71,7 +71,7 @@ export class userController {
                 _id: req.params.id,
                 isDelete: false
             }
-            const result = this.user.deleteUser(id);
+            const result = await this.user.deleteUser(id);
             successHandler(req, res, '', 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
