@@ -8,6 +8,12 @@ export class authenController {
         try {
             const data: any = req.body;
             const result: any = await this.authen.login(data);
+            res.cookie('access_token', result.accessToken, {
+                httpOnly: true
+            });
+            res.cookie('refresh_token', result.refreshToken, {
+                httpOnly: true
+            });
             successHandler(req, res, '' ,'Login Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
@@ -16,7 +22,7 @@ export class authenController {
 
     public refresh = async (req: Request, res: Response) => {
         try {
-            const token: any = (<any>req).refresh_token;
+            const token: any = req.cookies.refresh_token;
             const result: any = await this.authen.refresh(token);
             successHandler(req, res, '' ,'Success', 200);
         } catch (error) {

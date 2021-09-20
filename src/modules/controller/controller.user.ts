@@ -2,6 +2,7 @@ import { userService } from '../service/service.user';
 import Quest from './../model/model.question'
 import {errorHandler, successHandler} from './../../utils/response.service';
 import { Request, Response } from "express";
+import { serializerUserInfo } from '../serializer/user.serializer';
 
 export class userController {
     private user: userService = new userService();
@@ -12,7 +13,7 @@ export class userController {
                 isDelete: false
             }
             const result = await this.user.getUser(data);
-            successHandler(req, res, result, 'Success', 200);
+            successHandler(req, res, serializerUserInfo(result), 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
         }
