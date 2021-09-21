@@ -1,7 +1,7 @@
 import { Application } from "express";
 import { isAuthen } from "../../middleware/middleware.authen";
 import { isAdmin } from "../../middleware/middleware.author";
-import { validateBodySchema, validateQuerySchema } from "../../middleware/middleware.validate";
+import { validateBodySchema, validateQuerySchema, validateParamsSchema } from "../../middleware/middleware.validate";
 import { questionController } from "../controller/controller.question";
 import { categorySchema, englishSchema, getQuestionsSchema, updateQuestionSchema } from "../DTO/DTO.question";
 
@@ -20,7 +20,7 @@ export class questionRoute{
         app.route('/v1/manager/:english')
             .all(isAuthen)
             .put(isAdmin, validateBodySchema(updateQuestionSchema) ,this.quest.updateQuestion)
-            .delete(isAdmin, validateBodySchema(englishSchema) ,this.quest.deleteQuestion)
+            .delete(isAdmin, validateParamsSchema(englishSchema) ,this.quest.deleteQuestion)
             .get(this.quest.getOne);
         
         app.route('/v1/question/all')

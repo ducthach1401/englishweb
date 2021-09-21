@@ -5,7 +5,7 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
     try {
         const admin = (<any>req).locals.isAdmin;
         if (admin){
-            next();
+            return next();
         }
         errorHandler(req, res, 'Unauthorized', 403);
     } catch (error) {

@@ -8,8 +8,8 @@ export class authenService {
             const user = await User.findOne({
                 username: data.username
             });
-            if (!user){
-                throw Error('Username or Password Wrong!!');
+            if (!user || user.isDelete){
+                throw Error('User not found!!');
             }
             const check = await bcrypt.compareSync(data.password, user.password);
             if (check){
@@ -29,7 +29,7 @@ export class authenService {
                 }
             }
             else {
-                throw Error('Username or Password Wrong!!');
+                throw Error('Password is incorrect!!');
             }
         } catch (error) {
             throw error;

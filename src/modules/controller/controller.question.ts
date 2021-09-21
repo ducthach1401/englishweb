@@ -61,7 +61,7 @@ export class questionController {
                 isDelete: false
             }
             const result = await this.question.deleteQuestion(filter);
-            successHandler(req, res, '', 'delete Success', 200);
+            successHandler(req, res, '', 'Delete Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
         }

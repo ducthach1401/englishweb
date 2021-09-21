@@ -24,7 +24,12 @@ export class authenController {
         try {
             const token: any = req.cookies.refresh_token;
             const result: any = await this.authen.refresh(token);
-            successHandler(req, res, '' ,'Success', 200);
+            if (result) {
+                res.cookie('access_token', result.accessToken);
+                successHandler(req, res, result ,'Success', 200);
+            } else {
+                errorHandler(req, res, 'Invalid Refresh Token', 401);
+            }
         } catch (error) {
             errorHandler(req, res, error, 400);
         }
