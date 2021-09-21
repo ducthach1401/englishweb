@@ -20,7 +20,7 @@ export const errorHandler = (req: Request, res: Response, error: any, code?: any
             returnCode = 400;
         }
         message = error.message;
-        returnCode = error.statusCode? error.statusCode : 500;
+        returnCode = error.statusCode? error.statusCode : (code ? code : 500);
     } else {
         message = error;
         returnCode = code || 500;
