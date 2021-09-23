@@ -25,6 +25,8 @@ export class questionRoute{
         
         app.route('/v1/question/all')
             .get(isAuthen, this.quest.getAll);
-            
+        
+        app.route('/v1/category/all')
+            .get(isAuthen, this.quest.getCategory);
     }
 }

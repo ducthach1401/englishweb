@@ -25,7 +25,9 @@ export class authenController {
             const token: any = req.cookies.refresh_token;
             const result: any = await this.authen.refresh(token);
             if (result) {
-                res.cookie('access_token', result.accessToken);
+                res.cookie('access_token', result.accessToken, {
+                    httpOnly: true
+                });
                 successHandler(req, res, result ,'Success', 200);
             } else {
                 errorHandler(req, res, 'Invalid Refresh Token', 401);

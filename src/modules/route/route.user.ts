@@ -24,5 +24,9 @@ export class userRoute {
             .all(isAuthen, isAdmin)
             .delete(this.user.deleteUser)
             .put(this.user.updateUserForAdmin)
+        
+        app.route('/v1/user/all')
+            .all(isAuthen)
+            .get(this.user.getAllUser);
     }
 }

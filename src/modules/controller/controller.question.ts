@@ -71,6 +71,9 @@ export class questionController {
         try {
             const category = req.body;
             const result = await this.question.createTestCategory(category);
+            if (result.length == 0){
+                errorHandler(req, res, 'Not Found', 404);
+            }
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
@@ -80,6 +83,18 @@ export class questionController {
     public createTest = async (req: Request, res: Response) => {
         try {
             const result = await this.question.createTest();
+            successHandler(req, res, result, 'Success', 200);
+        } catch (error) {
+            errorHandler(req, res, error, 400);
+        }
+    }
+
+    public getCategory = async (req: Request, res: Response) => {
+        try {
+            let result = await this.question.getCategoryAll();
+            result = result.map((element: any) => {
+                return element.category
+            });
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);

@@ -1,0 +1,21 @@
+.header{
+    font-size: large;
+    width: 90%  ;
+    margin: auto;
+}
+
+.header svg {
+    margin-right: 20px;
+}
+
+#album {
+    /* width: 200px; */
+    height: 100px;
+    margin-top: 20px;
+    background-color: lightcyan;
+    cursor: pointer;
+}
+
+#album:hover {
+    background-color: gold;
+}

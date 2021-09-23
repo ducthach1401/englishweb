@@ -3,7 +3,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { CombineRoute } from "./modules/index";
 import config from "./config/config";
-
+import { routeView } from "./view/route/route.view";
 
 mongoose.connect(`${process.env.MONGO_URL}`, {
     useNewUrlParser: true,
@@ -17,7 +17,8 @@ mongoose.connect(`${process.env.MONGO_URL}`, {
     config(app);
     const combineRoute = new CombineRoute();
     combineRoute.start(app);
-
+    const viewRoute = new routeView();
+    viewRoute.route(app);
     app.listen(port, () => {
         console.log(`Server is running on ${port} at http://localhost:8080`);
     });

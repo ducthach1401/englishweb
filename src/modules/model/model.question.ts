@@ -8,7 +8,7 @@ export interface IQuest extends IBase {
     meaning: string,
     exampleEnglish: string,
     exampleVietnamese: string,
-    catalogy: string
+    category: string
 }
 
 const questionSchema = new Schema(SchemaBase({

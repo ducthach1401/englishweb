@@ -9,6 +9,6 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
         }
         errorHandler(req, res, 'Unauthorized', 403);
     } catch (error) {
-        throw error;
+        errorHandler(req, res, error, 500);
     }
 }

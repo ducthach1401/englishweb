@@ -15,7 +15,7 @@ export function validateBodySchema (schema: ObjectSchema){
                 next();
             }
         } catch (error) {
-            throw error;
+            errorHandler(req, res, error, 500);
         }
     }
 }
@@ -32,7 +32,7 @@ export function validateQuerySchema (schema: ObjectSchema){
                 next();
             }
         } catch (error) {
-            throw error;
+            errorHandler(req, res, error, 500);
         }
     }
 }
@@ -49,7 +49,7 @@ export function validateParamsSchema (schema: ObjectSchema){
                 next();
             }
         } catch (error) {
-            throw error;
+            errorHandler(req, res, error, 500);
         }
     }
 }

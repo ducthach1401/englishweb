@@ -1,6 +1,7 @@
 import fetch from 'cross-fetch';
 import cheerio from 'cheerio';
-import Quest from './../model/model.question'
+import Quest from './../model/model.question';
+import Category from './../model/model.category';
 import { data } from 'cheerio/lib/api/attributes';
 
 export class questionService {
@@ -126,7 +127,6 @@ export class questionService {
                 const temp = await this.createMultipleChoice(quest, answerAll);
                 result.push(temp);
             }
-            console.log(result);
             return result;
         } catch (error) {
             throw error;
@@ -138,8 +138,8 @@ export class questionService {
             const answer = await Quest.find({
                 isDelete:false
             });
-            let temp = await Quest.find();
-            temp = await this.shuffle(temp);
+            let temp: any;
+            temp = await this.shuffle(answer);
             let count = 0;
             let result: any = [];
             for (let question of temp){
@@ -222,7 +222,11 @@ export class questionService {
                 result.answers.push(answer[randomAnswer].english);
             }
             result.answers = await this.shuffle(result.answers);
-            result.true = data.english;
+            result.true = {
+                english: data.english,
+                type: data.type,
+                meaning: data.meaning
+            }
             return result;
         } catch (error) {
             throw error;
@@ -243,5 +247,16 @@ export class questionService {
             throw error;
         }
     }
+    async getCategoryAll(): Promise<any> {
+        try {
+            const getCategory = await Category.find({
+                isDelete: false
+            });
+            return getCategory;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
+
 

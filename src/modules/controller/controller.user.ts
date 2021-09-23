@@ -21,7 +21,8 @@ export class userController {
 
     public getAllUser = async (req: Request, res: Response) => {
         try {
-            const result = await this.user.getAllUser();
+            let result = await this.user.getAllUser();
+            result = result.map((element: any) => serializerUserInfo(element));
             successHandler(req, res, result, 'Success', 200);
         } catch (error) {
             errorHandler(req, res, error, 400);
