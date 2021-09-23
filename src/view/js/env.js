@@ -47,7 +47,7 @@ async function getNameOfUser() {
     });
     let data = await response.json();
     let temp;
-    if (data.roleUser){
+    if (data.result.isAdmin){
         document.getElementById('admin').innerHTML = '';
         temp = document.createElement('span');
         temp.setAttribute('class', 'dropdown-item');
@@ -56,6 +56,6 @@ async function getNameOfUser() {
         document.getElementById('admin').appendChild(temp);
     }
     temp = document.createElement('span');
-    temp.innerHTML = data.name;
-    document.getElementById('navbarDropdown').appendChild(temp);
+    temp.innerHTML = data.result.name;
+    document.getElementById('name').appendChild(temp);
 }

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { questionService } from "../service/service.question";
 import Quest from './../model/model.question'
 import {errorHandler, successHandler} from './../../utils/response.service';
+import { serializerQuestionsInfo } from "../serializer/question.serializer";
 
 export class questionController {
     private question: questionService = new questionService();
@@ -33,7 +34,8 @@ export class questionController {
                 ...req.query,
                 isDelete: false
             };
-            const result = await this.question.getQuestion(data);
+            let result = await this.question.getQuestion(data);
+            result = result.map((element: any) => serializerQuestionsInfo(element));
             successHandler(req, res, result, "Success", 200);
         } catch (error) {
             errorHandler(req, res, error, 400);

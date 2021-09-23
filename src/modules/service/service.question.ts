@@ -57,7 +57,7 @@ export class questionService {
     async getQuestion(data: any): Promise<any> {
         try {
             let {size, page, ...filter} = data;
-            size = size?parseInt(size):10;
+            size = size?parseInt(size):100;
             page = page?parseInt(page):1;
             const question = await Quest.find(filter)
             .limit(size)
