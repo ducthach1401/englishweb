@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/app.ts",
-    "build": "tsc -p .",
-    "start": "node ./build/app.js",
+    "build": "tsc -p ./src/app.ts",
+    "start": "ts-node ./build/app.js",
     "test1": "nodemon ./src/modules/service/service.question.ts"
   },
   "author": "",
