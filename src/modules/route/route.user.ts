@@ -14,11 +14,11 @@ export class userRoute {
 
         app.route('/v1/user')
             .all(isAuthen)
-            .put(validateBodySchema(passwordSchema), this.user.updateUser)
+            .put(validateBodySchema(updateNameSchema), this.user.updateUser)
             .get(this.user.getUser);
 
         app.route('/v1/user/password')
-            .put(isAuthen, validateBodySchema(passwordSchema), this.user.updateUser);
+            .put(isAuthen, validateBodySchema(passwordSchema), this.user.updatePassword);
 
         app.route('/v1/user/manager/:id')
             .all(isAuthen, isAdmin)

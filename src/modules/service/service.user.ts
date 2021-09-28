@@ -26,7 +26,21 @@ export class userService {
             if (!user){
                 throw Error('Username not found!!');
             }
-            await User.updateOne({username: data.username}, data);
+            await User.updateOne(username, data);
+            return 'update User Success';
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updatePassword(data: any, username: any): Promise<any> {
+        try {
+            const user = await User.findOne(username);
+            if (!user){
+                throw Error('Username not found!!');
+            }
+            data.password = bcrypt.hashSync(data.password, saltRound);
+            await User.updateOne(username, data);
             return 'update User Success';
         } catch (error) {
             throw error

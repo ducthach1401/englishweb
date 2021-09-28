@@ -53,6 +53,22 @@ export class userController {
         }
     }
 
+    public updatePassword = async (req: Request, res: Response) => {
+        try {
+            const data = {
+                password: req.body.password
+            };
+            const username = {
+                username: (<any>req).locals.username,
+                isDelete: false
+            }
+            const result = await this.user.updatePassword(data, username);
+            successHandler(req, res, result, 'Success', 200);
+        } catch (error) {
+            errorHandler(req, res, error, 400);
+        }
+    }
+
     public updateUserForAdmin = async (req: Request, res: Response) => {
         try {
             const data = req.body;

@@ -55,7 +55,5 @@ async function getNameOfUser() {
         temp.innerHTML = 'Admin';
         document.getElementById('admin').appendChild(temp);
     }
-    temp = document.createElement('span');
-    temp.innerHTML = data.result.name;
-    document.getElementById('name').appendChild(temp);
+    document.getElementById('name').innerText = data.result.name;
 }

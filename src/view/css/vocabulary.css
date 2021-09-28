@@ -1,0 +1,55 @@
+.header{
+    font-size: large;
+    width: 90%  ;
+    margin: auto;
+}
+
+.header svg {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+#album {
+    /* width: 200px; */
+    height: 100px;
+    margin-top: 20px;
+    background-color: lightcyan;
+    cursor: pointer;
+}
+
+#album:hover {
+    background-color: gold;
+}
+
+.element {
+    margin-bottom: 20px;
+    background-color: aliceblue;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.element p {
+    padding-left: 10px;
+}
+
+.english {
+    background-color:lightskyblue;
+    font-size: large;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+/* .hidden {
+    padding: 0px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
+ */

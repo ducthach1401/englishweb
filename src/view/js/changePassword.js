@@ -1,12 +1,13 @@
 async function changePassword() {
-    const user = await getUserID();
     const url = API_URL + '/v1/user/password';
     const password = document.getElementById('password').value;
     const password_confirm = document.getElementById('password-confirm').value;
     if (password_confirm == password){
         const payload = {
-            password: password
+            password: password,
+            passwordConfirm: password_confirm
         }
+
         const response = await fetch(url, {
             method: 'PUT',
             body: JSON.stringify(payload),
@@ -15,13 +16,22 @@ async function changePassword() {
                 'Content-Type': 'application/json',
             },
         });
-        Swal.fire({
-            title: "Success and Login again",
-            icon: 'success'
-        });
-        setTimeout(() => {
-            window.location.href = '/logout';
-        }, 1000);
+        let data = await response.json();
+        if (data.code == 200){
+            Swal.fire({
+                title: "Success and Login again",
+                icon: 'success'
+            });
+            setTimeout(() => {
+                window.location.href = '/logout';
+            }, 1000);
+        }
+        else {
+            Swal.fire({
+                title: data.message,
+                icon: 'error'
+            });
+        }
     }
     else {
         Swal.fire({
@@ -30,20 +40,6 @@ async function changePassword() {
         });
     }
 }
-
-async function getUserID() {
-    const url = API_URL + '/v1/user/'
-    const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    let data = await response.json();
-    return data;
-}
-
 
 async function cancel() {
     window.location.href = '/';

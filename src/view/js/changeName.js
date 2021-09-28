@@ -1,5 +1,4 @@
 async function changeName() {
-    const user = await getUserID();
     const url = API_URL + '/v1/user/';
     const name = document.getElementById('name').value;
     if (name.length > 20){
@@ -20,13 +19,22 @@ async function changeName() {
                 'Content-Type': 'application/json',
             },
         });
-        Swal.fire({
-            title: "Change Name",
-            icon: 'success'
-        });
-        setTimeout(() => {
-            window.location.href = '/';
-        }, 1000);
+        let data = await response.json();
+        if (data.code == 200){
+            Swal.fire({
+                title: "Change Name",
+                icon: 'success'
+            });
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        }
+        else {
+            Swal.fire({
+                title: data.message,
+                icon: 'error'
+            });
+        }
     }
 }
 
