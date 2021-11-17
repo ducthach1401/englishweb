@@ -65,5 +65,14 @@ export class routeView {
                 res.redirect('/login');
             }
         });
+
+        app.get('/quiz/:english', (req: Request, res: Response) => {
+            if (req.cookies.access_token != null){
+                res.sendFile(path.resolve(this.dirHtml + '/quiz.html'));
+            }
+            else {
+                res.redirect('/login');
+            }
+        });
     }
 }

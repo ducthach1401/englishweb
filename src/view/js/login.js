@@ -14,7 +14,6 @@ async function login() {
         }
     });
     const token = await response.json();
-    console.log(token);
     if (token.code != 200) {
         Swal.fire({
             title: "User wrong or Password wrong",

@@ -127,6 +127,7 @@ export class questionService {
                 const temp = await this.createMultipleChoice(quest, answerAll);
                 result.push(temp);
             }
+            result = await this.shuffle(result);
             return result;
         } catch (error) {
             throw error;
@@ -150,6 +151,7 @@ export class questionService {
                     break;
                 }
             }
+            result = await this.shuffle(result);
             return result;
         } catch (error) {
             throw error;

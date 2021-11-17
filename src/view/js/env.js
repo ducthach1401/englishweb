@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:8080";
+// const API_URL = "https://englishexam.glitch.me";
 
 async function logout(){
     window.location.href = '/logout';
