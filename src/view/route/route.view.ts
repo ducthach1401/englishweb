@@ -74,5 +74,14 @@ export class routeView {
                 res.redirect('/login');
             }
         });
+
+        app.get('/exam', (req: Request, res: Response) => {
+            if (req.cookies.access_token != null){
+                res.sendFile(path.resolve(this.dirHtml + '/exam.html'));
+            }
+            else {
+                res.redirect('/login');
+            }
+        });
     }
 }

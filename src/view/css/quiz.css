@@ -53,16 +53,30 @@ label {
 
 .radio {
     margin-left: 10px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }
 
 .answer {
     padding-left: 50px;
     margin-bottom: 10px;
 }
-/* .hidden {
-    padding: 0px;
-    background-color: white;
-    display: none;
-    overflow: hidden;
+
+.button {
+    width: 150px;
+    margin-left: 10px;
 }
- */
+
+.submit {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: lawngreen;
+}

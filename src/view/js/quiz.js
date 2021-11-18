@@ -1,10 +1,11 @@
 getNameOfUser();
 getQuiz();
+var num = 0;
 
 async function getQuiz() {
     window.localStorage.clear();
     let quiz = window.location.href.split('/');
-    quiz = quiz[quiz.length - 1];
+    quiz = decodeURIComponent(quiz[quiz.length - 1]);
     const url = API_URL + '/v1/question/test';
     const payload = {
         category: quiz
@@ -18,8 +19,7 @@ async function getQuiz() {
         }
     });
     let data = await response.json();
-
-    let num = 0;
+    num = 0;
     if (data.success){
         for (let question of data.result){
             window.localStorage.setItem(question.question, JSON.stringify(question.true));
@@ -28,6 +28,7 @@ async function getQuiz() {
             element.setAttribute('class', 'col-10 element');
             const english = document.createElement('p');
             english.setAttribute('class', 'english')
+            english.setAttribute('id', num);
             const div = document.createElement('div');
             div.setAttribute('class', 'answer');
             english.innerHTML = num + '. ' + question.question;
@@ -47,13 +48,57 @@ async function getQuiz() {
             element.appendChild(div);
             document.getElementById('quiz').appendChild(element);
         }
-        // const submit = document.createElement('input');
-        // submit.innerHTML = 'Submit';
+        const div = document.createElement('div');
+        div.setAttribute('class', 'col-10 submit');
 
-        // const cancel = document.createElement('input');
+        const submit = document.createElement('button');
+        submit.setAttribute('value', 'submit');
+        submit.setAttribute('class', 'btn btn-outline-info btn-lg button');
+        submit.setAttribute('onclick', 'submit()');
+        submit.innerHTML = 'Submit';
+        div.appendChild(submit);
+
+        // const cancel = document.createElement('button');
+        // cancel.setAttribute('value', 'cancel');
+        // cancel.setAttribute('class', 'btn btn-outline-secondary button');
+        // cancel.setAttribute('onclick', 'cancel()');
         // cancel.innerHTML = 'Cancel';
+        // div.appendChild(cancel);
 
-        // document.getElementById('quiz').append(submit);
-        // document.getElementById('quiz').append(cancel);
+        document.getElementById('quiz').append(div);
     }
+}
+
+async function submit(){
+    let mark = 0;
+    for (let i = 1; i <= num; i++) {
+        const answer = document.getElementsByName(i);
+        let question = document.getElementById(i).innerText.replace(i.toString() + '. ', '').trim();
+        let result = window.localStorage.getItem(question);
+        result = JSON.parse(result).english;
+        for (let j = 0; j < answer.length; j++){
+            let flag = 1;
+            if (answer[j].checked){
+                let data = answer[j].value;
+                if (data == result){
+                    mark ++;
+                    flag = 0;
+                }
+                else {
+                    answer[j].nextSibling.setAttribute('style', 'color: red; font-weight: bold;');
+                }
+            }
+
+            if (answer[j].value == result){
+                answer[j].nextSibling.setAttribute('style', 'color: green; font-weight: bold;');
+            }
+
+            answer[j].disabled = true;
+            flag = 1;
+        }
+    }
+    Swal.fire({
+        title: 'Mark: ' + mark + '/' + num,
+        icon: 'success'
+    });
 }

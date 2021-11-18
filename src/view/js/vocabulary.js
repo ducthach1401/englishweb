@@ -38,8 +38,28 @@ async function getCategory(){
         element.appendChild(div);
         document.getElementById('vocabulary').appendChild(element);
     }
+    const div = document.createElement('div');
+    div.setAttribute('class','col-10 footer');
+    const quiz = document.createElement('button');
+    quiz.setAttribute('class', 'btn btn-outline-info btn-lg button');
+    quiz.setAttribute('onclick', 'quiz();');
+    quiz.innerText = 'Quiz';
+
+    const button = document.createElement('button');
+    button.setAttribute('class', 'btn btn-outline-secondary btn-lg button');
+    button.setAttribute('onclick', 'home();');
+    button.innerText = 'Return';
+    div.appendChild(quiz);
+    div.appendChild(button);
+    document.getElementById('vocabulary').appendChild(div);
 }
 
-// async function show(){
-//     console.log('test');
-// }
+async function quiz(){
+    let category = window.location.href.split('/');
+    category = category[category.length - 1];
+    window.location.href = '/quiz/' + category;
+}
+
+async function home(){
+    window.location.href = '/'
+}
