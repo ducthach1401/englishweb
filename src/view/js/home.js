@@ -1,6 +1,3 @@
-getCategory();
-getNameOfUser();
-
 async function getCategory() {
   const url = API_URL + "/v1/category/all";
   const response = await fetch(url, {

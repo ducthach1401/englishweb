@@ -1,5 +1,3 @@
-getNameOfUser();
-getQuiz();
 var num = 0;
 
 async function getQuiz() {

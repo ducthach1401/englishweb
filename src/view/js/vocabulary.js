@@ -1,6 +1,3 @@
-getNameOfUser();
-getCategory();
-
 async function getCategory() {
   let category = window.location.href.split("/");
   category = category[category.length - 1];
